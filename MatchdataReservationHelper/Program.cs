@@ -31,6 +31,7 @@ namespace MatchdataReservationHelper
         Console.WriteLine("");
         Console.WriteLine("");
 
+        var teamsConfig = RegisterTeamsConfig.GetConfig();
 
         Console.WriteLine("Drücke Enter um das CSV-File mit dem Spielplan zu definieren");
         Console.ReadLine();
@@ -199,44 +200,20 @@ namespace MatchdataReservationHelper
 
     private static string ReplaceTeamname(string teamName, string league, string group)
     {
-      if (teamName == "VBC Malters " && league == "NLB")
-        return "Herren 1";
 
-      if (teamName == "VBC Malters 2" && league == "2L")
-        return "Herren 2";
+      var teamsConfig = RegisterTeamsConfig.GetConfig();
 
-      if (teamName == "VBC Malters 3" && league == "4L")
-        return "Herren 3";
+      foreach (Team team in teamsConfig.Teams)
+      {
+        if (teamName == team.SwissVolleyName &&
+            league == team.League &&
+            group == team.Group)
+        {
+          return team.Name;
+        }
 
-
-
-      if (teamName == "VBC Malters 1" && league == "2L")
-        return "Damen 1";
-
-      if (teamName == "VBC Malters 2" && league == "4L")
-        return "Damen 2";
-
-      if (teamName == "VBC Malters 3" && league == "5L")
-        return "Damen 3";
-
-
-
-      if (teamName == "VBC Malters 1" && league == "U23 1.Liga")
-        return "Juniorinnen 1";
-
-      if (teamName == "VBC Malters 2" && league == "U23 4.Liga")
-        return "Juniorinnen 2";
-
-      if (teamName == "VBC Malters 3" && league == "U23 4.Liga")
-        return "Juniorinnen 3";
-
-
-      if (teamName == "VBC Malters 1" && league == "U23 1L")
-        return "Junioren 1";
-
-      if (teamName == "VBC Malters 2" && league == "U23 2L")
-        return "Junioren 2";
-
+        
+      }
       return teamName;
     }
   }

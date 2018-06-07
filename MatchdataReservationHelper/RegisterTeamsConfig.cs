@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MatchdataReservationHelper.ConfigAddition
+namespace MatchdataReservationHelper
 {
   public class RegisterTeamsConfig
     : ConfigurationSection
@@ -17,7 +17,8 @@ namespace MatchdataReservationHelper.ConfigAddition
     }
 
     [System.Configuration.ConfigurationProperty("Teams")]
-    [ConfigurationCollection(typeof(Teams), AddItemName = "Team")]
+    [ConfigurationCollection(typeof(Teams), 
+      AddItemName = "Team")]
     public Teams Teams
     {
       get

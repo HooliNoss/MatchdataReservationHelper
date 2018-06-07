@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace MatchdataReservationHelper.ConfigAddition
+namespace MatchdataReservationHelper
 {
   public class Teams
     : ConfigurationElementCollection

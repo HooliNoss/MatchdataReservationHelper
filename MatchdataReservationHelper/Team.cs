@@ -1,10 +1,10 @@
 ﻿using System.Configuration;
 
-namespace MatchdataReservationHelper.ConfigAddition
+namespace MatchdataReservationHelper
 {
   public class Team : ConfigurationElement
   {
-    [ConfigurationProperty("name", IsRequired = true)]
+    [ConfigurationProperty("name", IsKey = true, IsRequired = true)]
     public string Name
     {
       get
