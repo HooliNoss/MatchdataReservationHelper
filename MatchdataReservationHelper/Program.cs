@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MatchdataReservationHelper.DTOs;
+using MatchdataReservationHelper.WordExport;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MatchdataReservationHelper.DTOs;
-using MatchdataReservationHelper.WordExport;
 
 namespace MatchdataReservationHelper
 {
@@ -21,17 +22,7 @@ namespace MatchdataReservationHelper
     {
       try
       {
-        Console.WriteLine("Das Programm liest den Gesamtspielplan welcher von der myVolley site generiert wurde.");
-        Console.WriteLine("Im generierten File Gemeindereservationszeiten.txt werden die Reservierungszeiten angezeigt, welche man der Gemeinde frühzeitig mitteilen kann.");
-        Console.WriteLine("Im generierten File Spielplan_VBCMalters.csv ist der Gesamtspielplan zu finden.");
-        Console.WriteLine("Es werden sämtliche Reservationen für die Gemeinde erstellt (Achtung alles im Bündtmättliformat).");
-        Console.WriteLine("Sämtliche Files sind im Ordner Output zu finden");
-        Console.WriteLine("");
-        Console.WriteLine("Die Teams können im .Config File angepasst werden");
-        Console.WriteLine("");
-        Console.WriteLine("");
-
-        var teamsConfig = RegisterTeamsConfig.GetConfig();
+        ShowStartupInfos();
 
         Console.WriteLine("Drücke Enter um das CSV-File mit dem Spielplan zu definieren");
         Console.ReadLine();
@@ -44,11 +35,8 @@ namespace MatchdataReservationHelper
           return;
         }
 
-
-        int preparingTime = Convert.ToInt32(ConfigurationManager.AppSettings["PreperingTimeInHours"]) * -1;
-        int playTime = Convert.ToInt32(ConfigurationManager.AppSettings["AverageMatchTimeInHours"]);
-
-        //List<Match> matchList = csvImporter.ConvertCsvToList(file);
+        double preparingTime = Convert.ToDouble(ConfigurationManager.AppSettings["PreperingTimeInHours"]) * -1;
+        double playTime = Convert.ToDouble(ConfigurationManager.AppSettings["AverageMatchTimeInHours"]);
 
         Console.WriteLine($"CSV File: {file}");
         Console.WriteLine("");
@@ -69,6 +57,19 @@ namespace MatchdataReservationHelper
 
         Console.ReadLine();
       }
+    }
+
+    private static void ShowStartupInfos()
+    {
+      Console.WriteLine("Das Programm liest den Gesamtspielplan welcher von der myVolley site generiert wurde.");
+      Console.WriteLine("Im generierten File Gemeindereservationszeiten.txt werden die Reservierungszeiten angezeigt, welche man der Gemeinde frühzeitig mitteilen kann.");
+      Console.WriteLine("Im generierten File Spielplan_VBCMalters.csv ist der Gesamtspielplan zu finden.");
+      Console.WriteLine("Es werden sämtliche Reservationen für die Gemeinde erstellt (Achtung alles im Bündtmättliformat).");
+      Console.WriteLine("Sämtliche Files sind im Ordner Output zu finden");
+      Console.WriteLine("");
+      Console.WriteLine("Die Teams können im .Config File angepasst werden");
+      Console.WriteLine("");
+      Console.WriteLine("");
     }
 
     private static void CreateOutputFolder()
@@ -106,7 +107,7 @@ namespace MatchdataReservationHelper
       return null;
     }
 
-    private static void GenerateOverview(List<Match> matchList, int preparingTime, int playTime)
+    private static void GenerateOverview(List<Match> matchList, double preparingTime, double playTime)
     {
       matchList.RemoveAll(match => !(match.DateTime.DayOfWeek == DayOfWeek.Saturday || match.DateTime.DayOfWeek == DayOfWeek.Sunday));
       matchList.RemoveAll(match => !match.HomeTeam.Contains("Malters"));
@@ -137,12 +138,12 @@ namespace MatchdataReservationHelper
       }
     }
 
-    private static void GenerateReservationFiles(List<Match> matchList, int preparingTime, int playTime)
+    private static void GenerateReservationFiles(List<Match> matchList, double preparingTime, double playTime)
     {
       matchList.RemoveAll(match => !(match.DateTime.DayOfWeek == DayOfWeek.Saturday || match.DateTime.DayOfWeek == DayOfWeek.Sunday));
       matchList.RemoveAll(match => !match.HomeTeam.Contains("Malters"));
 
-      var orderedMatchlist = matchList.OrderBy(match => match.DateTime).ToList();
+      List<Match> orderedMatchlist = matchList.OrderBy(match => match.DateTime).ToList();
 
       List<DateTime> allMatchDays = orderedMatchlist.Select(match => match.DateTime)
               .Select(date => new DateTime(date.Year, date.Month, date.Day))

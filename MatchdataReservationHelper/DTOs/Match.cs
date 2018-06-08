@@ -2,7 +2,7 @@
 
 namespace MatchdataReservationHelper.DTOs
 {
-    public class Match
+  public class Match
     {
         public DateTime DateTime { get; set; }
         public string Hall { get; set; }

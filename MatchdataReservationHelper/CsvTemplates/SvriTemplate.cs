@@ -1,11 +1,11 @@
-﻿using System;
-using System.Configuration;
-using CsvHelper.Configuration;
+﻿using CsvHelper.Configuration;
 using MatchdataReservationHelper.DTOs;
+using System;
+using System.Configuration;
 
 namespace MatchdataReservationHelper.CsvTemplates
 {
-    public class SvriTemplate : CsvClassMap<Match>
+  public class SvriTemplate : CsvClassMap<Match>
     {
         public SvriTemplate()
         {

@@ -1,16 +1,16 @@
-﻿using System;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using MatchdataReservationHelper.CsvTemplates;
+using MatchdataReservationHelper.DTOs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using CsvHelper;
-using CsvHelper.Configuration;
-using MatchdataReservationHelper.CsvTemplates;
-using MatchdataReservationHelper.DTOs;
 
 namespace MatchdataReservationHelper
 {
-    public class CsvImporter
+  public class CsvImporter
     {
         public List<Match> ConvertCsvToList(string csvPath)
         {
