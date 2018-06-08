@@ -22,12 +22,12 @@ namespace MatchdataReservationHelper
       try
       {
         Console.WriteLine("Das Programm liest den Gesamtspielplan welcher von der myVolley site generiert wurde.");
-        Console.WriteLine("Im generierten File Gemeindereservationszeiten.txt werden die Reservierungszeiten angezeigt");
+        Console.WriteLine("Im generierten File Gemeindereservationszeiten.txt werden die Reservierungszeiten angezeigt, welche man der Gemeinde frühzeitig mitteilen kann.");
         Console.WriteLine("Im generierten File Spielplan_VBCMalters.csv ist der Gesamtspielplan zu finden.");
         Console.WriteLine("Es werden sämtliche Reservationen für die Gemeinde erstellt (Achtung alles im Bündtmättliformat).");
-        Console.WriteLine("Sämtliche files sind im Ordner Output zu finden");
+        Console.WriteLine("Sämtliche Files sind im Ordner Output zu finden");
         Console.WriteLine("");
-        Console.WriteLine("edit config file to change filename and indexes");
+        Console.WriteLine("Die Teams können im .Config File angepasst werden");
         Console.WriteLine("");
         Console.WriteLine("");
 
