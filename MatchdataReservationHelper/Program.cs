@@ -3,7 +3,6 @@ using MatchdataReservationHelper.WordExport;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -64,7 +63,7 @@ namespace MatchdataReservationHelper
       Console.WriteLine("Das Programm liest den Gesamtspielplan welcher von der myVolley site generiert wurde.");
       Console.WriteLine("Im generierten File Gemeindereservationszeiten.txt werden die Reservierungszeiten angezeigt, welche man der Gemeinde frühzeitig mitteilen kann.");
       Console.WriteLine("Im generierten File Spielplan_VBCMalters.csv ist der Gesamtspielplan zu finden.");
-      Console.WriteLine("Es werden sämtliche Reservationen für die Gemeinde erstellt (Achtung alles im Bündtmättliformat).");
+      Console.WriteLine("Es werden alle Reservationen für die Gemeinde erstellt (Achtung alles im Bündtmättliformat).");
       Console.WriteLine("Sämtliche Files sind im Ordner Output zu finden");
       Console.WriteLine("");
       Console.WriteLine("Die Teams können im .Config File angepasst werden");
@@ -94,9 +93,11 @@ namespace MatchdataReservationHelper
 
     private static string OpenCsvFile()
     {
-      OpenFileDialog dialog = new OpenFileDialog();
-      dialog.Filter = "csv files (*.csv)|*.csv";
-      dialog.RestoreDirectory = true;
+      OpenFileDialog dialog = new OpenFileDialog
+      {
+        Filter = "csv files (*.csv)|*.csv",
+        RestoreDirectory = true
+      };
       var result = dialog.ShowDialog();
 
       if (result == DialogResult.OK)
@@ -212,8 +213,6 @@ namespace MatchdataReservationHelper
         {
           return team.Name;
         }
-
-        
       }
       return teamName;
     }
