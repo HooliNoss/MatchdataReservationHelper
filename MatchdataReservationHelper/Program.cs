@@ -13,7 +13,6 @@ namespace MatchdataReservationHelper
 {
   class Program
   {
-
     private static string OutputFolder = @"Output\";
 
     [STAThread]
