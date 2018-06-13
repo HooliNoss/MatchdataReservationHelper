@@ -21,10 +21,7 @@ namespace MatchdataReservationHelper
       try
       {
         ShowStartupInfos();
-
-        Console.WriteLine("Drücke Enter um das CSV-File mit dem Spielplan zu definieren");
-        Console.ReadLine();
-        var csvImporter = new CsvImporter();
+        
         string file = OpenCsvFile();
         if (string.IsNullOrEmpty(file))
         {
@@ -41,12 +38,12 @@ namespace MatchdataReservationHelper
 
         CreateOutputFolder();
 
+        var csvImporter = new CsvImporter();
         GenerateSpielplanVbcMalters(csvImporter.ConvertCsvToList(file));
         GenerateOverview(csvImporter.ConvertCsvToList(file), preparingTime, playTime);
         GenerateReservationFiles(csvImporter.ConvertCsvToList(file), preparingTime, playTime);
 
         Console.ReadLine();
-
       }
       catch (Exception ex)
       {
@@ -68,6 +65,9 @@ namespace MatchdataReservationHelper
       Console.WriteLine("Die Teams können im .Config File angepasst werden");
       Console.WriteLine("");
       Console.WriteLine("");
+
+      Console.WriteLine("Drücke Enter um das CSV-File mit dem Spielplan zu definieren");
+      Console.ReadLine();
     }
 
     private static void CreateOutputFolder()
@@ -170,7 +170,6 @@ namespace MatchdataReservationHelper
     {
       var orderedMatchlist = matchList.OrderBy(match => match.DateTime).ToList();
 
-
       foreach (var match in orderedMatchlist)
       {
         match.HomeTeam = ReplaceTeamname(match.HomeTeam, match.League, match.Group);
@@ -201,9 +200,7 @@ namespace MatchdataReservationHelper
 
     private static string ReplaceTeamname(string teamName, string league, string group)
     {
-
       var teamsConfig = RegisterTeamsConfig.GetConfig();
-
       foreach (Team team in teamsConfig.Teams)
       {
         if (teamName == team.SwissVolleyName &&
